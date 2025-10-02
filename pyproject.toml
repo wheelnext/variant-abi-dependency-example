@@ -1,0 +1,11 @@
+[project]
+name = "abi_dependent_variants"
+version = "0.0.0"
+requires-python = ">=3.10"
+
+[tool.uv]
+dev-dependencies = [
+    "flit @ git+https://github.com/wheelnext/flit.git@wheel_variants",
+    "flit_core @ git+https://github.com/wheelnext/flit.git@wheel_variants#subdirectory=flit_core",
+]
+package = false
