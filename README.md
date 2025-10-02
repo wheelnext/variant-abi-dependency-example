@@ -1,0 +1,1 @@
+# variant-abi-dependency-example
