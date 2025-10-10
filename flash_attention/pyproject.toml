@@ -1,0 +1,28 @@
+[build-system]
+requires = ['flit_core >=3,<4']
+build-backend = 'flit_core.buildapi'
+
+[project]
+name = "flash_attn"
+description = "Flash Attention: Fast and Memory-Efficient Exact Attention"
+version = "2.8.0"
+requires-python = ">=3.10"
+License = "BSD-3-Clause"
+dependencies = [
+    'einops',
+    'torch==2.8.0; "abi_dependency :: torch :: 2.8.0" in variant_properties',
+    'torch==2.9.0; "abi_dependency :: torch :: 2.9.0" in variant_properties'
+]
+
+
+[variant.default-priorities]
+namespace = ["nvidia", "abi_dependency"]
+
+[variant.providers.nvidia]
+requires = ["nvidia-variant-provider>=0.0.2,<1.0.0"]
+plugin-api = "nvidia_variant_provider.plugin:NvidiaVariantPlugin"
+enable-if = "platform_system == 'Linux' or platform_system == 'Windows'"
+
+[variant.providers.abi_dependency]
+plugin-use = "none"
+requires = []

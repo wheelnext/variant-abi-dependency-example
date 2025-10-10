@@ -1,0 +1,96 @@
+{
+    "$schema": "https://variants-schema.wheelnext.dev/v0.0.2.json",
+    "default-priorities": {
+        "namespace": [
+            "nvidia",
+            "priority"
+        ],
+        "property": {
+            "priority": {
+                "cuda": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            }
+        }
+    },
+    "providers": {
+        "nvidia": {
+            "enable-if": "platform_system == 'Linux' or platform_system == 'Windows'",
+            "plugin-api": "nvidia_variant_provider.plugin:NvidiaVariantPlugin",
+            "requires": [
+                "nvidia-variant-provider>=0.0.2,<1.0.0"
+            ]
+        },
+        "priority": {
+            "plugin-use": "none"
+        }
+    },
+    "variants": {
+        "cuda12.6": {
+            "nvidia": {
+                "cuda_version_lower_bound": [
+                    "12.0"
+                ],
+                "sm_arch": [
+                    "50_real",
+                    "60_real",
+                    "70_real",
+                    "75_real",
+                    "80_real",
+                    "86_real",
+                    "90_real"
+                ]
+            },
+            "priority": {
+                "cuda": [
+                    "3"
+                ]
+            }
+        },
+        "cuda12.8": {
+            "nvidia": {
+                "cuda_version_lower_bound": [
+                    "12.0"
+                ],
+                "sm_arch": [
+                    "100_real",
+                    "120_real",
+                    "70_real",
+                    "75_real",
+                    "80_real",
+                    "86_real",
+                    "90_real"
+                ]
+            },
+            "priority": {
+                "cuda": [
+                    "2"
+                ]
+            }
+        },
+        "cuda12.9": {
+            "nvidia": {
+                "cuda_version_lower_bound": [
+                    "12.0"
+                ],
+                "sm_arch": [
+                    "100_real",
+                    "120_real",
+                    "120_virtual",
+                    "70_real",
+                    "75_real",
+                    "80_real",
+                    "86_real",
+                    "90_real"
+                ]
+            },
+            "priority": {
+                "cuda": [
+                    "1"
+                ]
+            }
+        }
+    }
+}

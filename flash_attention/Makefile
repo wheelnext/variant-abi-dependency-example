@@ -31,10 +31,19 @@ clean-test: ## remove test and coverage artifacts
 # ============================================================================ #
 
 build: clean ## builds source and wheel package
-	for ver in 1.0.0 2.0.0 3.0.0; do \
-		echo "Building version $$ver"; \
-		sed -i.bak -E "s/^version = .*/version = \"$$ver\"/" pyproject.toml; \
-		flit build --format wheel > /dev/null 2>&1 ; \
-	done; \
-	mv pyproject.toml.bak pyproject.toml
+	flit build --format wheel \
+	    --variant-label "cu12_pyt2.8.0" \
+		-p "abi_dependency :: torch :: 2.8.0" \
+		-p "nvidia :: cuda_version_lower_bound :: 12.0"
+
+	flit build --format wheel \
+	    --variant-label "cu12_pyt2.9.0" \
+		-p "abi_dependency :: torch :: 2.9.0" \
+		-p "nvidia :: cuda_version_lower_bound :: 12.0"
+
+	flit build --format wheel \
+	    --variant-label "cu13_pyt2.9.0" \
+		-p "abi_dependency :: torch :: 2.9.0" \
+		-p "nvidia :: cuda_version_lower_bound :: 13.0"
+
 	ls -al dist/

@@ -1,12 +1,17 @@
-.PHONY: build build-a build-b
+.PHONY: build build-torch build-flash-attn
 .SILENT:
 
-build: build-base build-dependent
-	cp abi_dependent/dist/*.whl docs/abi_dependent/
-	cp base_project/dist/*.whl docs/base_project/
+build: build-torch build-flash-attn
+	cp torch/dist/*.whl docs/torch/
+	variantlib generate-index-json -d docs/torch/
+	mockhouse generate-project-index -d docs/torch/
 
-build-base:
-	$(MAKE) -C base_project build
+	cp flash_attention/dist/*.whl docs/flash_attn/
+	variantlib generate-index-json -d docs/flash_attn/
+	mockhouse generate-project-index -d docs/flash_attn/
 
-build-dependent:
-	$(MAKE) -C abi_dependent build
+build-torch:
+	$(MAKE) -C torch build
+
+build-flash-attn:
+	$(MAKE) -C flash_attention build
