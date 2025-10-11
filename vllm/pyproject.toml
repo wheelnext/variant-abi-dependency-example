@@ -1,0 +1,110 @@
+[build-system]
+requires = ['flit_core >=3,<4']
+build-backend = 'flit_core.buildapi'
+
+[project]
+name = "vllm"
+description = "A high-throughput and memory-efficient inference and serving engine for LLMs"
+version = "0.11.0"
+requires-python = ">=3.10"
+License = "BSD-3-Clause"
+dependencies = [
+    'regex',
+    'cachetools',
+    'psutil',
+    'sentencepiece',
+    'numpy',
+    'requests>=2.26.0',
+    'tqdm',
+    'blake3',
+    'py-cpuinfo',
+    'transformers>=4.55.2',
+    'tokenizers>=0.21.1',
+    'protobuf',
+    'fastapi[standard]>=0.115.0',
+    'aiohttp',
+    'openai>=1.99.1',
+    'pydantic>=2.11.7',
+    'prometheus_client>=0.18.0',
+    'pillow',
+    'prometheus-fastapi-instrumentator>=7.0.0',
+    'tiktoken>=0.6.0',
+    'lm-format-enforcer==0.11.3',
+    'llguidance<0.8.0,>=0.7.11; platform_machine == "x86_64" or platform_machine == "arm64" or platform_machine == "aarch64"',
+    'outlines_core==0.2.11',
+    'diskcache==5.6.3',
+    'lark==1.2.2',
+    'xgrammar==0.1.25; platform_machine == "x86_64" or platform_machine == "aarch64" or platform_machine == "arm64"',
+    'typing_extensions>=4.10',
+    'filelock>=3.16.1',
+    'partial-json-parser',
+    'pyzmq>=25.0.0',
+    'msgspec',
+    'gguf>=0.13.0',
+    'importlib_metadata; python_version < "3.10"',
+    'mistral_common[audio,image]>=1.8.2',
+    'opencv-python-headless>=4.11.0',
+    'pyyaml',
+    'six>=1.16.0; python_version > "3.11"',
+    'setuptools<80,>=77.0.3; python_version > "3.11"',
+    'einops',
+    'compressed-tensors==0.11.0',
+    'depyf==0.19.0',
+    'cloudpickle',
+    'watchfiles',
+    'python-json-logger',
+    'scipy',
+    'ninja',
+    'pybase64',
+    'cbor2',
+    'setproctitle',
+    'openai-harmony>=0.0.3',
+    'numba==0.60.0; python_version == "3.9"',
+    'numba==0.61.2; python_version > "3.9"',
+    'ray[cgraph]>=2.48.0',
+    'xformers==0.0.32.post1; platform_system == "Linux" and platform_machine == "x86_64"',
+    'torch==2.8.0; "abi_dependency :: torch :: 2.8.0" in variant_properties',
+]
+
+[project.optional-dependencies]
+audio = [
+    "librosa",
+    "soundfile",
+    "mistral_common[audio]",
+]
+bench = [
+    'pandas',
+    'datasets',
+]
+fastsafetensors = [
+    'fastsafetensors>=0.1.10',
+]
+flashinfer = [
+    'flashinfer-python==0.3.1',
+]
+petit-kernel = [
+    'petit-kernel',
+]
+runai = [
+    'runai-model-streamer>=0.14.0',
+    'runai-model-streamer-gcs',
+    'google-cloud-storage',
+    'runai-model-streamer-s3',
+    'boto3',
+]
+tensorizer = [
+    'tensorizer==2.10.1',
+]
+
+
+[variant.default-priorities]
+namespace = ["nvidia", "abi_dependency"]
+
+[variant.providers.nvidia]
+requires = ["nvidia-variant-provider>=0.0.2,<1.0.0"]
+plugin-api = "nvidia_variant_provider.plugin:NvidiaVariantPlugin"
+enable-if = "platform_system == 'Linux' or platform_system == 'Windows'"
+
+[variant.providers.abi_dependency]
+plugin-use = "none"
+requires = []

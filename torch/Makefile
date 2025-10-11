@@ -58,8 +58,8 @@ build: clean ## builds source and wheel package
 		-p "priority :: cuda :: 2"
 	
 	flit build --format wheel \
-	    --variant-label "cuda12.9" \
-		-p "nvidia :: cuda_version_lower_bound :: 12.0" \
+	    --variant-label "cuda13.0" \
+		-p "nvidia :: cuda_version_lower_bound :: 13.0" \
 		-p "nvidia :: sm_arch :: 70_real" \
 		-p "nvidia :: sm_arch :: 75_real" \
 		-p "nvidia :: sm_arch :: 80_real" \

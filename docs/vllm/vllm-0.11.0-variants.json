@@ -1,0 +1,35 @@
+{
+    "$schema": "https://variants-schema.wheelnext.dev/v0.0.2.json",
+    "default-priorities": {
+        "namespace": [
+            "nvidia",
+            "abi_dependency"
+        ]
+    },
+    "providers": {
+        "abi_dependency": {
+            "plugin-use": "none"
+        },
+        "nvidia": {
+            "enable-if": "platform_system == 'Linux' or platform_system == 'Windows'",
+            "plugin-api": "nvidia_variant_provider.plugin:NvidiaVariantPlugin",
+            "requires": [
+                "nvidia-variant-provider>=0.0.2,<1.0.0"
+            ]
+        }
+    },
+    "variants": {
+        "cu128_pyt2.8.0": {
+            "abi_dependency": {
+                "torch": [
+                    "2.8.0"
+                ]
+            },
+            "nvidia": {
+                "cuda_version_lower_bound": [
+                    "12.0"
+                ]
+            }
+        }
+    }
+}
