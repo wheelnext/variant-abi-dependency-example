@@ -78,7 +78,6 @@ dependencies = [
 
 [variant.default-priorities]
 namespace = ["nvidia", "priority"]
-property.priority.cuda = ["1", "2", "3"]
 
 [variant.providers.nvidia]
 requires = ["nvidia-variant-provider>=0.0.2,<1.0.0"]
@@ -86,5 +85,7 @@ plugin-api = "nvidia_variant_provider.plugin:NvidiaVariantPlugin"
 enable-if = "platform_system == 'Linux' or platform_system == 'Windows'"
 
 [variant.providers.priority]
-requires = []
-plugin-use = "none"
+install-time = false
+
+[variant.static-properties.priority]
+order = ["1", "2", "3"]
